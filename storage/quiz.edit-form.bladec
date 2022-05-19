@@ -1,0 +1,79 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main-content'); ?>
+
+
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+ <div class="container-fluid">
+ <div class="card">
+ <?php if (isset($_SESSION['error'])) { ?>
+ <div class="warning alert-danger" style="padding:10px; margin-bottom:10px;">
+ <strong>Lỗi !</strong> <?= $_SESSION['error'] ?>
+ </div>
+ <?php unset($_SESSION['error']) ?>
+ <?php } ?>
+ <div class="card-header">Sửa quiz
+ </div>
+ <form action="<?php echo \htmlentities(BASE_URL . '/quiz/luu-cap-nhat/'.$quiz->id, ENT_QUOTES, 'UTF-8', false); ?> " method="POST">
+ <div class="form-group">
+ <label for="input-1">Mã Quiz</label>
+ <input type="text" class="form-control" id="input-1" placeholder="Auto number" name="id" value="<?php echo \htmlentities($quiz->id, ENT_QUOTES, 'UTF-8', false); ?>" readonly disabled>
+ </div>
+ <div class="form-group">
+ <label for="input-2">Tên Quiz</label>
+ <input type="text" class="form-control" id="input-2" placeholder="" name="name" value="<?php echo \htmlentities($quiz->name, ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <div class="form-group">
+ <label for="input-2">Môn Học</label>
+ <select name="subject_id" id="" class="form-control">
+ <option selected hidden value="<?php echo \htmlentities($quiz->sub_id, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($quiz->name_sub, ENT_QUOTES, 'UTF-8', false); ?> </option>
+ <?php $__currentLoopData = $subjects; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $sub): $loop = $this->incrementLoopIndices();  ?> 
+ <option value="<?php echo \htmlentities($sub->id, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($sub->name, ENT_QUOTES, 'UTF-8', false); ?> </option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?> 
+
+ </select>
+ </div>
+ <div class="form-group">
+ <label for="input-2">Thời Gian Làm Bài</label>
+ <input type="number" class="form-control" id="input-2" placeholder="Tính bằng phút" name="duration_time" value="<?php echo \htmlentities($quiz->duration_minutes, ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <div class="form-group">
+ <label for="input-2">Thời Gian Bắt Đầu</label>
+ <input type="datetime-local" class="form-control" id="input-2" name="startTime" value="<?php echo \htmlentities($quiz->start_time, ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <div class="form-group">
+ <label for="input-2">Thời Gian Kết Thúc</label>
+ <input type="datetime-local" class="form-control" id="input-2" name="endTime" value="<?php echo \htmlentities($quiz->end_time, ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <div class="form-group">
+ <label for="input-2">Trạng Thái</label>
+ <select name="status" id="" class="form-control">
+ <option selected hidden value="<?php echo \htmlentities($quiz->status, ENT_QUOTES, 'UTF-8', false); ?>"> <?php echo \htmlentities(($quiz->status == 0 ) ? "Được làm " : "Không được làm", ENT_QUOTES, 'UTF-8', false); ?> </option>
+ <option value="0">Được Làm</option>
+ <option value="1">Không được làm</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label for="input-2">Trộn Quiz</label>
+ <select name="is_shuffle" id="" class="form-control">
+ <option selected hidden value="<?php echo \htmlentities($quiz->is_shuffle, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities(($quiz->is_shuffle == 0 ) ? "Có " : "Không", ENT_QUOTES, 'UTF-8', false); ?></option>
+ <option value="0">Có</option>
+ <option value="1">Không</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <button type="submit" name="btn_insert" class="btn btn-success">Lưu lại</button>
+ <a href="<?php echo \htmlentities(BASE_URL. '/quiz/list', ENT_QUOTES, 'UTF-8', false); ?>" class="btn btn-light">Quay Lại</a>
+ </div>
+ </form>
+ </div>
+
+
+
+ </div>
+
+
+ <?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.main'); } ?>

@@ -1,0 +1,34 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('main-home'); ?>
+ 
+
+<div class="content">
+ <div class="title-center">
+ <h1 style="text-align:center;">Đề Tài Quiz</h1>
+ </div>
+ <div class="item-gr">
+ <?php $__currentLoopData = $subject; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $s): $loop = $this->incrementLoopIndices();  ?>
+ <div class="card">
+ <div class="card-header">
+ <?php echo \htmlentities($s->name, ENT_QUOTES, 'UTF-8', false); ?>
+
+ </div>
+ <div class="card-body">
+ <h5 class="card-title">Special title treatment</h5>
+ <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+ <a href="quiz/danh-sach/<?php echo \htmlentities($s->id, ENT_QUOTES, 'UTF-8', false); ?>"class="btn btn-primary">Làm Ngay</a>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+
+ 
+
+ 
+
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.main_web'); } ?>
